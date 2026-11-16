@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blotato Support Desk — demo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1>🥔 Blotato Support Desk</h1>
+    <p class="sub">Publish &amp; schedule across 9 platforms · analytics · Instagram/Facebook inbox</p>
+  </div>
+  <div id="mode-badge" class="badge">…</div>
+</header>
+
+<nav class="tabs">
+  <button data-tab="publish" class="active">Publish</button>
+  <button data-tab="queue">Queue</button>
+  <button data-tab="analytics">Analytics</button>
+  <button data-tab="inbox">Inbox</button>
+</nav>
+
+<main>
+  <!-- ============================== PUBLISH ============================== -->
+  <section id="tab-publish" class="tab active">
+    <div class="card">
+      <h2>Compose a post</h2>
+      <label>Platform
+        <select id="pub-platform"></select>
+      </label>
+      <label>Account
+        <select id="pub-account"></select>
+      </label>
+      <p class="hint" id="pub-cap"></p>
+      <label>Post text
+        <textarea id="pub-text" rows="4" maxlength="2200" placeholder="Write your post…"></textarea>
+      </label>
+      <label>Media URLs (optional, comma-separated public URLs)
+        <input id="pub-media" type="text" placeholder="https://example.com/image.jpg">
+      </label>
+      <fieldset>
+        <legend>When</legend>
+        <label class="radio"><input type="radio" name="pub-when" value="now" checked> Publish now</label>
+        <label class="radio"><input type="radio" name="pub-when" value="at"> Schedule at
+          <input id="pub-datetime" type="datetime-local">
+        </label>
+        <label class="radio"><input type="radio" name="pub-when" value="slot"> Use next free slot</label>
+      </fieldset>
+      <button id="pub-submit" class="primary">Publish / Schedule</button>
+      <p class="hint">Publishing is async: you get a submission receipt first, then the app polls
+        Blotato until the post is <code>published</code> or <code>failed</code>. A scheduled post
+        reports <code>scheduled</code> — it is never polled for <code>published</code>.</p>
+    </div>
+    <div id="pub-result" class="card hidden"></div>
+  </section>
+
+  <!-- ============================== QUEUE ============================== -->
+  <section id="tab-queue" class="tab">
+    <div class="card">
+      <h2>Scheduled posts <button id="queue-refresh" class="small">Refresh</button></h2>
+      <p class="hint">Future scheduled posts, soonest first. Cancel any time before it publishes.</p>
+      <div id="queue-list">Loading…</div>
+    </div>
+  </section>
+
+  <!-- ============================== ANALYTICS ============================== -->
+  <section id="tab-analytics" class="tab">
+    <div class="card">
+      <h2>Top performing posts <button id="analytics-refresh" class="small">Refresh</button></h2>
+      <div class="filters">
+        <label>Rank by
+          <select id="an-sort">
+            <option value="views_count">Views</option>
+            <option value="reach_count">Reach</option>
+            <option value="likes_count">Likes</option>
+            <option value="comments_count">Comments</option>
+          </select>
+        </label>
+        <label>Platform
+          <select id="an-platform">
+            <option value="">All platforms</option>
+          </select>
+        </label>
+      </div>
+      <p class="hint" id="an-note"></p>
+      <div id="analytics-list">Loading…</div>
+    </div>
+  </section>
+
+  <!-- ============================== INBOX ============================== -->
+  <section id="tab-inbox" class="tab">
+    <div class="card">
+      <h2>Inbox — Instagram &amp; Facebook only</h2>
+      <p class="hint">Blotato's comments and DM APIs cover Instagram and Facebook only.
+        Replies count the person as an active contact for the month.</p>
+      <div class="subtabs">
+        <button data-subtab="comments" class="active">Comments</button>
+        <button data-subtab="dms">Direct messages</button>
+      </div>
+
+      <div id="subtab-comments" class="subtab active">
+        <label>Platform
+          <select id="cm-platform">
+            <option value="">Instagram + Facebook</option>
+            <option value="instagram">Instagram</option>
+            <option value="facebook">Facebook</option>
+          </select>
+        </label>
+        <div id="comments-list">Loading…</div>
+        <div id="comment-detail" class="hidden"></div>
+      </div>
+
+      <div id="subtab-dms" class="subtab">
+        <div class="dm-layout">
+          <div id="conv-list">Loading…</div>
+          <div id="thread" class="hidden"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p id="status-line">…</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
