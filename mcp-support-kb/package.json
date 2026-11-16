@@ -1,0 +1,1 @@
+{"dependencies":{"@modelcontextprotocol/sdk":"^1.17.0","zod":"^3.25.0"},"description":"Local MCP server exposing Blotato's support knowledge base (canned replies) to Claude Code over stdio.","name":"blotato-support-kb","private":true,"scripts":{"start":"node server.js"},"type":"module","version":"1.0.0"}
